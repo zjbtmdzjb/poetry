@@ -5,17 +5,40 @@
         <img src="https://avatars0.githubusercontent.com/u/18280125?s=460&v=4" alt="用户图像">
       </el-col>
       <el-col :span="14" class="admin__name">
-        Admin
+        Admin{{adminName}}
       </el-col>
     </el-row>
     <el-row class="admin__ip">
       登录权限：普通管理员<br/>
-      登录 IP：192.168.1.1
+      登录 IP：{{onlineIP}}
     </el-row>
   </el-card>
 </template>
 
+  alert(returnCitySN);
+</script>
 <script>
+import axios from 'axios'
+
+export default{
+  data () {
+    return{
+      adminName:'',
+      onlineIP:''
+    }
+  },
+  mounted(){
+    this.adminName = localStorage.getItem('adminName');
+    var self = this;
+    axios.get('http://ip.wheff7.com/ipinfo')
+    .then(function(res){
+      console.log(res.data.onlineip);
+      if(res.status == 200){
+        self.onlineIP = res.data.onlineip;
+      }
+    })
+  }
+}
 </script>
 
 <style lang="scss" scoped>

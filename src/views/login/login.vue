@@ -75,7 +75,7 @@
           .then(function(res){
             console.log(res);
             if(res.status = true){
-              localStorage.name = this.loginForm.name;
+              localStorage.adminName = this.loginForm.name;
               alert("管理员成功");
               router.push({ path: '/admin/index' });
             }

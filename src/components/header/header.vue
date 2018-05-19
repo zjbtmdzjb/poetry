@@ -10,10 +10,10 @@
       <el-col :span="4" class="header__user">
         <el-dropdown>
           <span class="el-dropdown-link">
-            王老师 <img src="https://avatars0.githubusercontent.com/u/18280125?s=460&v=4" alt="用户图像" class="user__avatar">
+            {{username}} <img src="https://avatars0.githubusercontent.com/u/18280125?s=460&v=4" alt="用户图像" class="user__avatar">
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>个人中心</el-dropdown-item>
+            <el-dropdown-item><router-link to="/admin/self" style="text-decoration: none">个人中心</router-link></el-dropdown-item>
             <el-dropdown-item  divided>退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -24,11 +24,24 @@
 
 <script>
   export default {
+    data:{
+      return:{
+        username:'王老师'
+      }
+    },
+    methods:{
 
+    },
+    mounted(){
+      this.username = localStorage.getItem('adminName');
+    }
   }
 </script>
 
 <style lang="scss" scoped>
+  .router-link-active {
+    text-decoration: none;
+  }
   .el-header {
     padding-left: 0;
     padding-right: 0;

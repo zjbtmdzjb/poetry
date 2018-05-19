@@ -4,13 +4,13 @@
       <admin-info></admin-info>
     </el-col>
     <el-col :span="5" class="col">
-      <count-info bgColor="#409EFF" icon="tasks" number="50" type="试卷总题数" update="true" ></count-info>
+      <count-info bgColor="#409EFF" icon="tasks" :number="questionNum" type="试卷总题数" update="true" ></count-info>
     </el-col>
     <el-col :span="5" class="col">
-      <count-info bgColor="#67C23A" icon="user-plus" number="412" type="学生总数"></count-info>
+      <count-info bgColor="#67C23A" icon="user-plus" :number="studentNum" type="学生总数"></count-info>
     </el-col>
     <el-col :span="5" class="col">
-      <count-info bgColor="#EB9E05" icon="edit" number="250" type="题目总数" ></count-info>
+      <count-info bgColor="#EB9E05" icon="edit" :number="poetryNum" type="题目总数" ></count-info>
     </el-col>
     <el-col :span="15" class="col col__right">
       <grade-info></grade-info>
@@ -30,14 +30,36 @@
   import TaskInfo from '../../views/index/taskInfo'
   import DevInfo from '../../views/index/devInfo'
   import GradeInfo from '../../views/index/gradeInfo'
+  import axios from 'axios'
 
   export default {
+    
+    data(){
+      return{
+        questionNum:'',
+        studentNum:'',
+        poetryNum:''
+      }
+    },
     components: {
       AdminInfo,
       CountInfo,
       TaskInfo,
       DevInfo,
       GradeInfo
+    },
+    mounted () {
+      this.questionNum = 40;
+      this.studentNum = 412;
+      this.poetryNum = 120;
+      axios.get('http://localhost:7001/global/index')
+      .then(function(res){
+        if(res.status == true){
+          this.questionNum = res.questionNum;
+          this.studentNum = res.studentNum;
+          this.poetryNum = res.poetryNum;
+        }
+      })
     }
   }
 </script>

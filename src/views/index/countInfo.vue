@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
     name: 'CountInfo',
     props: {
@@ -57,15 +58,28 @@
         this.btnName = '确认'
         this.link = !this.link
       },
-      confirm () {
-        this.input = !this.input
-        this.btnName = '修改'
-        this.link = !this.link
+      confirm : function(){
+        if(this.number != ''){
+          this.input = !this.input;
+          this.btnName = '修改';
+          this.link = !this.link;
+          axios.post('http://localhost:7001/global/questionNum',{
+            questionNum:this.number
+          })
+          .then(function(res){
+            console.log(res);
+            if(res.status = true){
+              alert("修改成功");
+            }
+          })
+          .catch(function(err){
+            console.log(err);
+            alert("修改失败，请检查信息");
+          });
+        }
       }
-    },
-    mounted () {
-      this.number = 40;
     }
+    
   }
 </script>
 

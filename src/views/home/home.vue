@@ -357,6 +357,12 @@
     },
     //页面加载读取题目数量
     mounted () {
+      axios.get('http://localhost:7001/Global/QuestionNum')
+      .then(function(res){
+        if(res.status == true){
+          this.number = parseInt(res.questionNum);
+        }
+      });
       this.num1 = Math.ceil(this.number*0.75);
       this.num2 = Math.ceil(this.number*0.15);
       this.num3 = this.number - this.num1 - this.num2;
